@@ -1,13 +1,14 @@
 .layout {
   display: flex;
-  background-color: pink;
+
 }
 
 .vertical-navbar {
   width: 80px;
   background-color: #0E5AE5;
   color: #fff;
-  height: 150vh;
+  height: 100vh;
+  position: fixed /* barre latérale tjs visible*/
 }
 
 .layout-title {
