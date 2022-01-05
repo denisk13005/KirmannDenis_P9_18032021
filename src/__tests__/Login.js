@@ -73,7 +73,7 @@ describe("Given that I am a user on login page", () => {
 
     // we have to mock navigation to test it
     const onNavigate = (pathname) => {
-      document.body.innerHTML = ROUTES({ pathname })
+      document.body.innerHTML = ROUTES({ pathname }) /// ??????? peut être mettre :'/'
     }
 
     let PREVIOUS_LOCATION = ''
@@ -105,6 +105,7 @@ describe("Given that I am a user on login page", () => {
     })  
 
     test("It should renders Bills page", () => {
+      // ??? récupérer la page employée ???
       expect(screen.getAllByText('Mes notes de frais')).toBeTruthy()
     })
 

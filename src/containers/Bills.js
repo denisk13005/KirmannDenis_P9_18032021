@@ -41,7 +41,7 @@ export default class {
             try {
               return {
                 ...doc.data(),
-                // date: formatDate(doc.data().date),
+                // date: formatDate(doc.data().date), // ???? pourquoi quand on le leve ça trie les dates correctement
                 status: formatStatus(doc.data().status)
               }
             } catch(e) {
