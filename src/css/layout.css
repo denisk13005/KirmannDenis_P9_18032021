@@ -1,5 +1,6 @@
 .layout {
   display: flex;
+  background-color: pink;
 }
 
 .vertical-navbar {
@@ -48,4 +49,8 @@
   justify-content: center;
   margin:auto;
   border-radius: 8px;
+}
+/*debug img qui dépasse du container en gd écran*/
+.modal-body img{
+  width: 100%;
 }
