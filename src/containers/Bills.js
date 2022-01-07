@@ -57,6 +57,7 @@ export default class {
           })
           .filter(bill => bill.email === userEmail)
           console.log('length', bills.length)
+          console.log( bills);
         return bills
       })
       .catch(error => error)

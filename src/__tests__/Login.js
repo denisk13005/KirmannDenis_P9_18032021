@@ -74,7 +74,7 @@ describe("Given that I am a user on login page", () => {
 
     // we have to mock navigation to test it
     const onNavigate = (pathname) => {
-      document.body.innerHTML = ROUTES({ pathname :'/'}) /// ??????? peut être mettre :'/'
+      document.body.innerHTML = ROUTES({ pathname}) /// ??????? peut être mettre :'/'
     }
 
     let PREVIOUS_LOCATION = ''
