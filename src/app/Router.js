@@ -11,16 +11,16 @@ import { ROUTES, ROUTES_PATH } from "../constants/routes.js"
 
 export default () => {
   const rootDiv = document.getElementById('root') // point d'entrée html
-  rootDiv.innerHTML = ROUTES({ pathname: window.location.pathname })
-
+  rootDiv.innerHTML = ROUTES({ pathname: window.location.pathname }) // génére la page en fonction de l'url
+  //crée une méthode onNavigate avec comme paramètre le pathname
   window.onNavigate = (pathname) => {
-
+    // ajoute à l'historique du navigateur 
     window.history.pushState(
       {},
       pathname,
       window.location.origin + pathname
     )
-    if (pathname === ROUTES_PATH['Login']) {
+    if (pathname === ROUTES_PATH['Login']) { //si le pathname est '/'
       rootDiv.innerHTML = ROUTES({ pathname })
       document.body.style.backgroundColor="#0E5AE5"
       new Login({ document, localStorage, onNavigate, PREVIOUS_LOCATION, firestore })
@@ -62,6 +62,7 @@ export default () => {
   
   window.onpopstate = (e) => {
     const user = JSON.parse(localStorage.getItem('user'))
+    console.log( user);
     if (window.location.pathname === "/" && !user) {
       document.body.style.backgroundColor="#0E5AE5"
       rootDiv.innerHTML = ROUTES({ pathname: window.location.pathname })
@@ -111,6 +112,6 @@ export default () => {
     }
   }
 
-  return null
+  // return null
 }
  

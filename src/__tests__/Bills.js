@@ -1,6 +1,8 @@
 import { screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
+import Bills from "../containers/Bills.js"
+import Firestore from "../app/Firestore.js"
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
@@ -18,4 +20,9 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted)
     })
   })
+})
+
+test("Then class should be exist",()=>{
+  const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
+  expect(buttonNewBill).toBeTruthy()
 })
