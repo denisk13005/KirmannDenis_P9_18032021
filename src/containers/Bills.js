@@ -30,6 +30,7 @@ export default class {
   }
 
   // not need to cover this function by tests
+  //va récupérer les notes de frais 
   getBills = () => {
     const userEmail = localStorage.getItem('user') ?
       JSON.parse(localStorage.getItem('user')).email : ""
@@ -60,6 +61,7 @@ export default class {
           .filter(bill => bill.email === userEmail)
           console.log('length', bills.length)
           console.log( bills);
+          console.log(snapshot);
         return bills
       })
       .catch(error => error)
