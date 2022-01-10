@@ -1,18 +1,23 @@
-import { screen } from "@testing-library/dom"
+/**
+ * @jest-environment jsdom
+ */
+import { 
+  screen,
+getByTestId,
+getByLabelText
+ } from "@testing-library/dom"
+import '@testing-library/user-event'
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
-    test("Then I click on ", () => {
+    it("Then I am on newNillPage ", () => {
       const html = NewBillUI()
-      document.body.innerHTML = html
-      const formNewBill = 'tests'
-      expect(formNewBill).toEqual('tests')
-    })
-    test("c'est un test", ()=> {
-      expect(newBill).toBeDefined()
-    })
+      document.body.innerHTML = html      
+      expect(getByTestId(document.body,'form-new-bill')).toBeTruthy()
+    })   
+    it("then i click on type de depense ")
   })
 })

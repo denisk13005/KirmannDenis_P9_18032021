@@ -17,11 +17,11 @@ export default class {
     })
     new Logout({ document, localStorage, onNavigate })
   }
-  // envoi sur la page newBill
+  // envoi sur la page newBill au click sur buttonNewBill
   handleClickNewBill = e => {
     this.onNavigate(ROUTES_PATH['NewBill'])
   }
-  //ouvre la modale d'affichage de la photo justificative de la note de frais
+  //ouvre la modale d'affichage de la photo justificative de la note de frais au click sur l'icone oeil
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
@@ -30,7 +30,7 @@ export default class {
   }
 
   // not need to cover this function by tests
-  //va récupérer les notes de frais 
+  //va récupérer les notes de frais stocker dans firestore 
   getBills = () => {
     const userEmail = localStorage.getItem('user') ?
       JSON.parse(localStorage.getItem('user')).email : ""
@@ -39,6 +39,8 @@ export default class {
       .bills()
       .get()
       .then(snapshot => {
+        let test = snapshot.docs.map(doc=>  doc.data())       
+        console.log('snapshot' , test)
         const bills = snapshot.docs
           .map(doc => {
             try {
@@ -58,11 +60,12 @@ export default class {
               }
             }
           })
+          //les filtre en fonction de l'utilisateur connecté
           .filter(bill => bill.email === userEmail)
           console.log('length', bills.length)
           console.log( bills);
           console.log(snapshot);
-        return bills
+        return bills // retourne les notes de frais filtrées
       })
       .catch(error => error)
     }
