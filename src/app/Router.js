@@ -13,6 +13,7 @@ export default () => {
   const rootDiv = document.getElementById('root') // point d'entrée html
   rootDiv.innerHTML = ROUTES({ pathname: window.location.pathname }) // génére la page en fonction de l'url
   //crée une méthode onNavigate avec comme paramètre le pathname
+ 
   window.onNavigate = (pathname) => {
     // ajoute à l'historique du navigateur 
     window.history.pushState(
