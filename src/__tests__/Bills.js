@@ -1,3 +1,4 @@
+
 import { screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
@@ -23,7 +24,20 @@ describe("Given I am connected as an employee", () => {
   })
 })
 
-test("Then class should be exist",()=>{
-  const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
-  expect(buttonNewBill).toBeTruthy()
+describe('Given i am on the loading page',()=>{
+  it('Should show Loading...',()=>{
+    const html = BillsUI({loading : true})
+    document.body.innerHTML = html
+    expect(screen.getAllByText('Loading...')).toBeTruthy()
+
+
+  })
+})
+
+describe('Given i am on error page', () => {
+  it('should show the error message',()=>{
+    const html = BillsUI({error : 'error message'})
+    document.body.innerHTML = html
+    expect(screen.getAllByText('error message')).toBeTruthy()
+  })
 })
