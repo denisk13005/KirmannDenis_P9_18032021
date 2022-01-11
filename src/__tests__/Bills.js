@@ -1,16 +1,22 @@
-
-import { screen } from "@testing-library/dom"
+/**
+ * @jest-environment jsdom
+ */
+import '@testing-library/jest-dom'
+import { getByTestId, screen } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
 import { bills } from "../fixtures/bills.js"
 import Bills from "../containers/Bills.js"
 import Firestore from "../app/Firestore.js"
 
+// BillUI tests
+
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
     test("Then bill icon in vertical layout should be highlighted", () => {
-      const html = BillsUI({ data: []})
+      const html = BillsUI({ data: bills})
       document.body.innerHTML = html
-      //to-do write expect expression
+      const btn = getByTestId(document.body,'btn-new-bill')
+      expect(btn).toHaveTextContent('Nouvelle note de frais')
     })
     test("Then bills should be ordered from earliest to latest", () => {
       const html = BillsUI({ data: bills })
@@ -23,7 +29,6 @@ describe("Given I am connected as an employee", () => {
     })
   })
 })
-
 describe('Given i am on the loading page',()=>{
   it('Should show Loading...',()=>{
     const html = BillsUI({loading : true})
@@ -41,3 +46,7 @@ describe('Given i am on error page', () => {
     expect(screen.getAllByText('error message')).toBeTruthy()
   })
 })
+
+//Bill tests
+
+
