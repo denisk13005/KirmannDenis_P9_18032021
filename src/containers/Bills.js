@@ -24,9 +24,16 @@ export default class {
   //ouvre la modale d'affichage de la photo justificative de la note de frais au click sur l'icone oeil
   handleClickIconEye = (icon) => {
     const billUrl = icon.getAttribute("data-bill-url")
-    const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
-    $('#modaleFile').modal('show')
+    //filtre sur les extensions des images
+    if(billUrl.includes('jpg'||'jpeg'||'gif')){
+      const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
+      $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
+      $('#modaleFile').modal('show')
+    }
+    else{
+      alert('format non supporté')
+      return
+    }
   }
 
   // not need to cover this function by tests
