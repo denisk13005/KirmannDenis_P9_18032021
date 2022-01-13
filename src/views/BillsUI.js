@@ -2,13 +2,14 @@ import VerticalLayout from './VerticalLayout.js'
 import ErrorPage from "./ErrorPage.js"
 import LoadingPage from "./LoadingPage.js"
 import Actions from './Actions.js'
+import { formatDate } from '../app/format.js'
 
 const row = (bill) => {
   return (`
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td>${bill.date} </td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -20,8 +21,7 @@ const row = (bill) => {
 
 const rows = (data) => {
   console.log( data);
-  let sortedData = data.sort((a,b) => new Date(b.date) - new Date(a.date))
-  return (data && data.length) ? sortedData.map(bill => row(bill)).join("") : ""
+  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
 }
 
 export default ({ data: bills, loading, error }) => {
@@ -42,13 +42,16 @@ export default ({ data: bills, loading, error }) => {
       </div>
     </div>
   `)
-
   if (loading) {
+    
     return LoadingPage()
   } else if (error) {
     return ErrorPage(error)
   }
-  
+  let sortedBills
+  if (bills) {
+    sortedBills = [...bills].sort((a, b) => new Date(b.date) - new Date(a.date))
+  }
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}
@@ -70,7 +73,7 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills)}
+            ${rows(sortedBills)}
           </tbody>
           </table>
         </div>

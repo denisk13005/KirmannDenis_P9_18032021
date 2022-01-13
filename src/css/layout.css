@@ -1,12 +1,14 @@
 .layout {
   display: flex;
+
 }
 
 .vertical-navbar {
   width: 80px;
   background-color: #0E5AE5;
   color: #fff;
-  height: 150vh;
+  height: 100vh;
+  position: fixed /* barre latérale tjs visible*/
 }
 
 .layout-title {
@@ -48,4 +50,8 @@
   justify-content: center;
   margin:auto;
   border-radius: 8px;
+}
+/*debug img qui dépasse du container en gd écran*/
+.modal-body img{
+  width: 100%;
 }

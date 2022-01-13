@@ -52,7 +52,8 @@ export const card = (bill) => {
 }
 
 export const cards = (bills) => {
-  return bills && bills.length ? bills.map(bill => card(bill)).join("") : ""
+  let filteredBills = bills.sort((a,b) => new Date(b.date) - new Date(a.date))
+  return (bills && bills.length) ? filteredBills.map(bill => card(bill)).join("") : ""
 }
 
 export const getStatus = (index) => {

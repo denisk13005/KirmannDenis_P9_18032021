@@ -29,13 +29,18 @@ export default class Login {
     this.onNavigate(ROUTES_PATH['Bills'])
     this.PREVIOUS_LOCATION = ROUTES_PATH['Bills']
     PREVIOUS_LOCATION = this.PREVIOUS_LOCATION
+    console.log(this.PREVIOUS_LOCATION);
+    
+    console.log(this.localStorage.user);
     this.document.body.style.backgroundColor="#fff"
   }
 
   handleSubmitAdmin = e => {
     const user = {
       type: "Admin",
+      //test id remplacé par admin-email-input
       email: e.target.querySelector(`input[data-testid="admin-email-input"]`).value,
+       //test id remplacé par admin-pqssword-input
       password: e.target.querySelector(`input[data-testid="admin-password-input"]`).value,
       status: "connected"
     }
