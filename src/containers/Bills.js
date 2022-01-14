@@ -47,7 +47,6 @@ export default class {
       .get()
       .then(snapshot => {
         let test = snapshot.docs.map(doc=>  doc.data())       
-        console.log('snapshot' , test)
         const bills = snapshot.docs
           .map(doc => {
             try {
@@ -70,8 +69,6 @@ export default class {
           //les filtre en fonction de l'utilisateur connecté
           .filter(bill => bill.email === userEmail)
           console.log('length', bills.length)
-          console.log( bills);
-          console.log(snapshot);
         return bills // retourne les notes de frais filtrées
       })
       .catch(error => error)
