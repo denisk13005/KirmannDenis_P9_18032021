@@ -39,6 +39,7 @@ export default class {
   // not need to cover this function by tests
   //va récupérer les notes de frais stocker dans firestore 
   getBills = () => {
+    //récupère l'email de l'utilisateur connecté
     const userEmail = localStorage.getItem('user') ?
       JSON.parse(localStorage.getItem('user')).email : ""
     if (this.firestore) {
@@ -46,7 +47,8 @@ export default class {
       .bills()
       .get()
       .then(snapshot => {
-        let test = snapshot.docs.map(doc=>  doc.data())       
+        let test = snapshot.docs.map(doc=>  doc.data())      
+        console.log('tests' , test); 
         const bills = snapshot.docs
           .map(doc => {
             try {

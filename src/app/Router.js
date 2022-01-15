@@ -34,7 +34,8 @@ export default () => {
       const divIcon2 = document.getElementById('layout-icon2')
       divIcon1.classList.add('active-icon')
       divIcon2.classList.remove('active-icon')
-      const bills = new Bills({ document, onNavigate, firestore, localStorage  })
+      const bills = new Bills({ document, onNavigate, firestore, localStorage })
+      console.log('bills',bills)
       bills.getBills().then(data => {
         rootDiv.innerHTML = BillsUI({ data })
         const divIcon1 = document.getElementById('layout-icon1')

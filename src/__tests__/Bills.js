@@ -2,29 +2,30 @@
  * @jest-environment jsdom
  */
 import '@testing-library/jest-dom'
-import { screen, fireEvent } from "@testing-library/dom"
+import { screen, fireEvent, getByTestId } from "@testing-library/dom"
 import BillsUI from "../views/BillsUI.js"
+import Bills from '../containers/Bills.js'
 import { bills } from "../fixtures/bills.js"
-import Bills from "../containers/Bills.js";
 import Router from '../app/Router.js'
 import { localStorageMock } from "../__mocks__/localStorage.js";
 import { ROUTES, ROUTES_PATH } from "../constants/routes"
-import Firestore from "../app/Firestore";
+import firestore from "../app/Firestore";
 import firebase from "../__mocks__/firebase";
 
 // BillUI tests
 
 describe("Given I am connected as an employee", () => {
-  describe("When I am on Bills Page", () => {
+  
     test("Then bill icon in vertical layout should be highlighted", () => {
-      // Firestore.bills = () => ({ bills, get: jest.fn().mockResolvedValue()})
-      // Object.defineProperty(window, 'localStorage', { value: localStorageMock })// mock localStorage
-      // window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))// Set user as Employee in localStorage
-      // Object.defineProperty(window, "location", { value: { hash: ROUTES_PATH['Bills'] } });// Set location
-      // document.body.innerHTML = `<div id="root"></div>`
-      // Router();
-      // console.log('document.body' , Router);
-      // expect(screen.getByTestId('icon-window').classList.contains('active-icon')).toBe(true)
+      firestore.bills = () => ({ bills, get: jest.fn().mockResolvedValue()})
+    
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))//défini lutilisateur comme un employé dans le local storage
+      console.log('local storage' , window.localStorage.getItem(""));
+      Object.defineProperty(window, "location", { value: { hash: ROUTES_PATH['Bills'] } });// Set location
+      document.body.innerHTML = `<div id="root"></div>`
+      Router();
+      expect(screen.getByTestId('icon-window')).toHaveClass('active-icon')
+      expect(screen.getByTestId('icon-mail')).not.toHaveClass('active-icon')
  
     })
     test("Then bills should be ordered from earliest to latest", () => {
@@ -36,8 +37,10 @@ describe("Given I am connected as an employee", () => {
       const datesSorted = [...dates].sort(antiChrono)
       expect(dates).toEqual(datesSorted)
     })
-  })
+ 
 })
+
+//ligne 47 billsUI
 
 describe('Given i am on the loading page',()=>{
   it('Should show Loading...',()=>{
@@ -49,6 +52,7 @@ describe('Given i am on the loading page',()=>{
   })
 })
 
+// ligne 49 billsUI
 describe('Given i am on error page', () => {
   it('should show the error message',()=>{
     const html = BillsUI({error : 'error message'})
@@ -58,6 +62,35 @@ describe('Given i am on error page', () => {
 })
 
 //Bill tests
+
+describe('Given i am on bills page',()=>{
+  //methode handleClickNewBill
+    it('Should called the handleClickNewBill method when i click on newBill button',()=>{  
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
+      const html = BillsUI({ data: bills })
+      document.body.innerHTML = html
+      let pathname =  ROUTES_PATH['Bills']
+      const onNavigate = ((pathname) => document.body.innerHTML = ROUTES({ pathname }))
+      const bill= new Bills({
+        document,
+        onNavigate       
+      })    
+      const handleClickNewBill = jest.fn(bill.handleClickNewBill)
+      const buttonNewBill = screen.getByTestId('btn-new-bill')
+      expect(buttonNewBill).toBeTruthy()
+      buttonNewBill.addEventListener('click', handleClickNewBill)
+      fireEvent.click(buttonNewBill)
+      expect(handleClickNewBill).toHaveBeenCalled()
+      expect(screen.getByText('Envoyer une note de frais')).toBeTruthy()
+    })
+
+    })
+
+    it('Should called the handleClickIconEye when i click on iconEye',()=>{
+      
+
+  
+})
 
 
 
