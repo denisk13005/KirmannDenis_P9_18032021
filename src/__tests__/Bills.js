@@ -85,9 +85,24 @@ describe('Given i am on bills page',()=>{
     })
 
     })
-
+    //methode handleClickIconEye
     it('Should called the handleClickIconEye when i click on iconEye',()=>{
-      
+      window.localStorage.setItem('user', JSON.stringify({type: 'Employee'}))
+      const html = BillsUI({ data: bills })
+      document.body.innerHTML = html
+      $.fn.modal = jest.fn() 
+      const bill= new Bills({
+        document,
+        onNavigate: (pathname) => document.body.innerHTML = ROUTES({ pathname })
+      })  
+      const iconEye = screen.getAllByTestId('icon-eye')
+      const iconEye1 = iconEye[0]
+      const handleClickIconEye = jest.fn(bill.handleClickIconEye(iconEye1))
+      iconEye1.addEventListener('click', handleClickIconEye)
+      expect(iconEye1).toBeDefined()   
+      expect(iconEye1).toHaveAttribute('data-bill-url')
+      fireEvent.click(iconEye1)
+      expect(handleClickIconEye).toHaveBeenCalled()
 
   
 })

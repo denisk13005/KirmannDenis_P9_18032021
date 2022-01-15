@@ -13,7 +13,7 @@ export default class {
     //sélection des icones oeils et déclenchement de la méthode handleClickIconEye au click
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
     if (iconEye) iconEye.forEach(icon => {
-      icon.addEventListener('click', (e) => this.handleClickIconEye(icon))
+      icon.addEventListener('click', () => this.handleClickIconEye(icon))
     })
     new Logout({ document, localStorage, onNavigate })
   }
@@ -30,10 +30,7 @@ export default class {
       $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} /></div>`)
       $('#modaleFile').modal('show')
     }
-    else{
-      alert('format non supporté')
-      return
-    }
+  
   }
 
   // not need to cover this function by tests
