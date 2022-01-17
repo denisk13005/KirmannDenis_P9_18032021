@@ -13,15 +13,16 @@ import '@testing-library/user-event'
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 import Router from "../app/Router.js"
-import Firestore from "../app/Firestore.js"
+import firestore from "../app/Firestore.js"
 import {ROUTES,ROUTES_PATH} from '../constants/routes'
 import userEvent from "@testing-library/user-event" 
 import Bills from "../containers/Bills.js"
-
+import { event } from "jquery"
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
-    
+   
+  
     it("Then I am on newBillPage and the form is present", () => {         
       const html = NewBillUI()
       document.body.innerHTML = html
@@ -54,19 +55,18 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getAllByText('Fournitures de bureau')).toBeTruthy()
     })
 
-    it('Then i am on newBillPage and i submit the bill but the datefield is not defined an error is displayed',()=>{
-    //  const onNavigate=({pathname}) =>{
-    //   document.body.innerHTML = ROUTES({ pathname })
-    // }
-    // const newBill = new NewBill({document,onNavigate})
-    // document.body.innerHTML = newBill
-
-    // userEvent.click(getByRole(document.body,'btn'))
-
-    // expect(newBill).toBe(true)
-    
-
-  })
+    // NewBill tests
+    it('Then  NewBill Class is defined',()=>{
+      
+      const html = NewBillUI()
+      document.body.innerHTML = html
+      const newBill = new NewBill({
+        document,
+        onNavigate : (pathname) => ROUTES({ pathname }),
+        firestore
+      })
+      expect(newBill).toBeDefined()    
+    })
     
   })
 })

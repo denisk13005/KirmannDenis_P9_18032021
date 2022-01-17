@@ -17,17 +17,28 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    console.log('file', file);
     const filePath = e.target.value.split(/\\/g)
+    console.log('filePath', filePath);
     const fileName = filePath[filePath.length-1]
-    this.firestore
-      .storage
-      .ref(`justificatifs/${fileName}`)
-      .put(file)
-      .then(snapshot => snapshot.ref.getDownloadURL())
-      .then(url => {
-        this.fileUrl = url
-        this.fileName = fileName
-      })
+    //vérification de l'extension de la photo justificative
+    if(fileName.endsWith('jpg'||'jpeg'||'png')){
+
+      console.log('filename' , fileName);
+      this.firestore
+        .storage
+        .ref(`justificatifs/${fileName}`)
+        .put(file)
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+          this.fileUrl = url
+          this.fileName = fileName
+        })
+    }
+    else{
+      alert('format non supporté')
+      return
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
